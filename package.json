@@ -1,0 +1,19 @@
+{
+  "name": "trapp/krakenexporter",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "express": "3.5.1",
+    "jade": "*",
+    "less-middleware": "~0.1.15",
+    "express-validator": "~2.1.1",
+    "kraken-api": "git+https://github.com/trapp/npm-kraken-api#c759826988ec0280b4f9e7513af9fb1806a5bfb9",
+    "async": "~0.2.10",
+    "express-force-domain": "0.0.6",
+    "node-uuid": "1.4.1",
+    "fast-csv": "0.5.2"
+  }
+}

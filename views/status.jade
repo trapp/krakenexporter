@@ -1,0 +1,25 @@
+extends layout
+
+block content
+    div(class='wrapper')
+        h1= title
+        if total === null
+            div.progress
+                div.progress-bar.progress-bar-striped.active(role='progressbar',aria-valuenow='#{count}',aria-valuemin="0",aria-valuemax="#{total}",style="width: 0%")
+                    span 0% Complete
+            p Fetching trade history.
+        else if total > count
+            div.progress
+                div.progress-bar.progress-bar-striped.active(role='progressbar',aria-valuenow='#{count}',aria-valuemin="0",aria-valuemax="#{total}",style="width: #{count*100/total}%")
+                    span #{(count*100/total).toFixed(0)}% Complete
+            p Fetching trade history. Loaded #{count} of #{total}.
+        else
+            div.progress
+                div.progress-bar.progress-bar-striped.active(role='progressbar',aria-valuenow='#{count}',aria-valuemin="0",aria-valuemax="#{total}",style="width: #{count*100/total}%")
+                    span #{(count*100/total).toFixed(0)}% Complete
+            p Done! Fetched #{total} trades.
+            div.btn-group
+                a(href='/exports/#{id}.csv')
+                    button(type='button').btn-primary Download CSV Export
+                |
+                button(type='submit').submit-button.btn-danger Delete CSV Export
