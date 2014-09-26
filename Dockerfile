@@ -18,4 +18,6 @@ RUN cd /opt/app && \
 RUN cd /opt/app && \
     cp config.js.example config.js
 
+EXPOSE 3000
+
 CMD ["/opt/app/krakenexporter.sh"]
