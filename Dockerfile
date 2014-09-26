@@ -15,4 +15,7 @@ RUN cd /opt/app && \
     npm install && \
     CI=true bower --allow-root install
 
+RUN cd /opt/app && \
+    cp config.js.example config.js
+
 CMD ["/opt/app/krakenexporter.sh"]
