@@ -9,15 +9,12 @@ RUN ln -s /usr/bin/nodejs /usr/bin/node
 
 RUN mkdir -p /opt/app
 
-ADD . /opt/app
+COPY . /opt/app
 
 RUN cd /opt/app && \
     npm install && \
     CI=true bower --allow-root install
 
-RUN cd /opt/app && \
-    cp config.js.example config.js
-
 EXPOSE 3000
 
-CMD ["/opt/app/krakenexporter.sh"]
+CMD ["/usr/bin/node", "/opt/app/app.js"]

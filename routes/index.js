@@ -23,7 +23,7 @@ exports.index = function(req, res){
                     };
                     res.render('index', { title: 'Export your Kraken history', errors: errors, values: values});
                 } else {
-                    res.redirect('/status/' + id);
+                    res.redirect('/export/' + id);
                 }
             });
         }
@@ -35,5 +35,20 @@ exports.index = function(req, res){
 exports.status = function(req, res) {
     var id = req.params.id;
     var ex = exporter.get(id);
-    res.render('status', { title: 'Export ' + id, id: id, count: ex.trades.length, total: ex.total });
+    if (!ex) {
+        res.status(404).send('Not found');
+    } else {
+        res.render('status', { title: 'Export ' + id, id: id, count: ex.trades.length, total: ex.total, error: ex.error });
+    }
+};
+
+exports.remove = function(req, res) {
+    var id = req.params.id;
+    exporter.remove(id, function(error) {
+        if (error) {
+            res.status(400).json({error: [error.message]});
+        } else {
+            res.status(200).json({error: []});
+        }
+    });
 };

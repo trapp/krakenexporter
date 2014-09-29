@@ -9,7 +9,7 @@ block content
                     p Export your kraken.com trade history as CSV.
                     p.small The best crypto exchange kraken.com sadly doesn't offer CSV exports of the trade history. Kraken Exporter offers this important service until they are going to implement this feature in kraken.com.
                 div.col-md-5.feature-image
-                    img(src="images/kraken-feature.png", alt="Kraken.com in an envelope")
+
 
     section.how
         div.wrapper
@@ -22,50 +22,13 @@ block content
     section.apikey
         div.wrapper
             h2 How to create an API key at kraken.com
-            div.carousel.slide(data-ride="carousel", id="tutorial")
-                ol.carousel-indicators
-                    li(data-target="#tutorial", data-slide-to="0", class="active")
-                    li(data-target="#tutorial", data-slide-to="1")
-                    li(data-target="#tutorial", data-slide-to="2")
-                    li(data-target="#tutorial", data-slide-to="3")
-                    li(data-target="#tutorial", data-slide-to="4")
-                    li(data-target="#tutorial", data-slide-to="5")
-                div.carousel-inner
-                    div.item.active
-                        img(src="/images/login.png", alt="Login")
-                        div.carousel-caption
-                            h3 1. Login to kraken
-                            p Go to kraken.com and log in using your credentials.
-                    div.item
-                        img(src="/images/settings-api.png", alt="Settings")
-                        div.carousel-caption
-                            h3 2. Navigate to "Settings" -> "API".
-                            p Go the the API configuration and click on "Generate New Key".
-                    div.item
-                        img(src="/images/api-settings.png", alt="Add key")
-                        div.carousel-caption
-                            h3 3. Configure your API key.
-                            p Add a Label and check the permission "Query funds". Leave the rest as it is and click on "Generate Key".
-                    div.item
-                        img(src="/images/result.png", alt="Result")
-                        div.carousel-caption
-                            h3 4. Done! Now add your subscription at Kraken Notifier.
-                            p Let this window open and goto Kraken Notifier in another tab.
-                    div.item
-                        img(src="/images/add-subscription.png", alt="Add subscription")
-                        div.carousel-caption
-                            h3 5. Add the kraken notifier subscription
-                            p Copy and paste your api key and secret into our subscribe form  and hit "Subscribe"
-                    div.item
-                        img(src="/images/success.png", alt="Add subscription")
-                        div.carousel-caption
-                            h3 6. Done! You've got mail.
-                            p Verify your mail address by clicking the link in the mail you just received. Enjoy your notifications :).
-
-                a(class="left carousel-control", href="#tutorial", data-slide="prev")
-                    span(class="glyphicon glyphicon-chevron-left")
-                a(class="right carousel-control", href="#tutorial", data-slide="next")
-                    span(class="glyphicon glyphicon-chevron-right")
+            ol
+                li Go to kraken.com and log in using your credentials.
+                li Go to "Settings" -> "API" and click on "Generate New Key".
+                li Add a Label and check the permission "Query Closed Orders & Trades". Leave the rest as it is and click on "Generate Key".
+                li Copy and paste your api key and secret into the form on this page and click "Start CSV Export"
+                li Wait until the export has finished and download your CSV file.
+                li Click on "Delete CSV Export" to remove the file from our servers.
 
     section.security
         div.wrapper
@@ -73,10 +36,11 @@ block content
             div.row
                 div.col-md-6
                     h3 We can't
-                    p Kraken allows to set very specific permissions for each API key. This service only needs one: "Query funds". Make sure to add this permission and only this permission. Your funds are untouchable for us.
+                    p Kraken allows to set very specific permissions for each API key. This service only needs one: "Query Closed Orders & Trades". Make sure to add this permission and only this permission. Your funds are untouchable for us.
                 div.col-md-6
                     h3 You don't have to
-                    p Kraken Exporter is open source. Grab a copy at <a href="https://www.github.com/trapp/krakenexporter">https://github.com/trapp/krakenexporter</a> and run your own instance. It's available as docker image! All you need to run your own instance is this command: docker run trapp/krakenexporter
+                    p Kraken Exporter is open source. Grab a copy at <a href="https://www.github.com/trapp/krakenexporter">https://github.com/trapp/krakenexporter</a> and run your own instance.
+                    p It's also available as docker image! All you need to run your own instance is this command: docker run trapp/krakenexporter
 
     section.footer
         div.wrapper

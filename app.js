@@ -11,7 +11,6 @@ var https = require('https');
 var fs = require('fs');
 var path = require('path');
 var lessMiddleware = require('less-middleware');
-var config = require('./config.js');
 var Exporter = require('./Exporter.js');
 var exporter = new Exporter();
 
@@ -19,11 +18,18 @@ var app = express();
 var isDev = app.get('env') == 'development';
 var cacheDuration = 2678400000; // 1 month
 
+config = {
+    port: process.env.PORT || 3000,
+    host: process.env.HOST || '127.0.0.1',
+    url: process.env.URL || 'http://localhost:3000',
+    ssl: false
+};
+
 routes.inject(exporter);
 
 // all environments
-app.set('port', process.env.PORT || config.port);
-app.set('host', process.env.HOST || config.host);
+app.set('port', config.port);
+app.set('host', config.host);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 app.use(express.favicon(path.join(__dirname, 'public/favicon.ico'), {maxAge: cacheDuration})); 
@@ -63,7 +69,8 @@ if (isDev) {
 
 app.get('/', routes.index);
 app.post('/', routes.index);
-app.get('/status/:id', routes.status);
+app.get('/export/:id', routes.status);
+app.delete('/export/:id', routes.remove);
 
 if (config.ssl) {
 

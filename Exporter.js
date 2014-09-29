@@ -2,6 +2,7 @@ var KrakenClient = require('kraken-api');
 var uuid = require('node-uuid');
 var async = require('async');
 var csv = require('fast-csv');
+var fs = require('fs');
 var Export = require('./Export.js');
 
 function Exporter() {
@@ -9,9 +10,9 @@ function Exporter() {
     var exports = {};
 
     var check = function(ex, client, attempt, next) {
-        console.log(ex.total, ex.trades.length);
+        console.log(ex.total, ex.trades.length, {end: ex.startTime, ofs: ex.trades.length, type: 'closed position'});
 
-        client.api('TradesHistory', {ofs: ex.trades.length}, function(error, data) {
+        client.api('TradesHistory', {end: ex.startTime, ofs: ex.trades.length}, function(error, data) {
             var delayNext = function() {
                 setTimeout(next, 500);
             };
@@ -26,19 +27,16 @@ function Exporter() {
                     next(new Error('The key doesn\'t have the required permissions'));
                 } else {
                     console.log("Unhandled error: " + error);
-                    // We want to notify users of balance changes only.
-                    // No need to throw errors at them every minute when the api is down.
-
-                    // Try it up to 5 times per user.
+                    // Try it up to 5 times. Sometimes the API just has a problem.
                     if (attempt < 5) {
                         setTimeout(
                             function() {
                                 check(ex, client, attempt + 1, next);
                             },
-                            1000
+                            error == 'EOrder:Rate limit exceeded' ? 60000 : 2000
                         );
                     } else {
-                        delayNext();
+                        next(new Error(error));
                     }
                 }
             } else {
@@ -82,10 +80,10 @@ function Exporter() {
                 },
                 function (error) {
                     if (error) {
-                        console.log(error);
+                        ex.error = error;
                     } else {
                         csv
-                            .writeToPath("./public/exports/" + ex.id + ".csv", ex.trades, {headers: true})
+                            .writeToPath(__dirname + "/public/exports/" + ex.id + ".csv", ex.trades, {headers: true})
                             .on("finish", function() {
                                 ex.finished = true;
                                 ex.filename = "/public/exports/" + ex.id + ".csv";
@@ -95,6 +93,20 @@ function Exporter() {
             );
 
             callback(null, id);
+        },
+        remove: function(id, callback) {
+            if (!exports.hasOwnProperty(id)) {
+                callback(new Error('Invalid id'));
+                return;
+            }
+            if (exports[id].finished === false) {
+                callback(new Error('Can\'t remove unfinished export.'));
+                return;
+            }
+            fs.unlink(__dirname + "/public/exports/" + id + ".csv", function() {
+                delete(exports[id]);
+                callback(null);
+            });
         }
     };
 }
