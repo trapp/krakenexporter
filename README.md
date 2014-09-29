@@ -2,7 +2,7 @@
 
 Exports your kraken.com history as CSV.
 
-Check it out at: [http://krakenexporter.zaeda.net](http://krakenexporter.zaeda.net)
+Check it out at: [http://krakenexporter.coinbutler.com](http://krakenexporter.coinbutler.com)
 
 ## Requirements
 
