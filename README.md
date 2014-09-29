@@ -12,7 +12,7 @@ Check it out at: [http://krakenexporter.zaeda.net](http://krakenexporter.zaeda.n
 
 ## Installation (with Docker)
 
-docker run -d -p 3000:3000 -e HOST=127.0.0.1 -e PORT=3000 -e URL=http://localhost:3000 trapp/krakenexporter 
+docker run -d -p 3000:3000 -e HOST=127.0.0.1 -e URL=http://localhost:3000 trapp/krakenexporter 
 
 ## Installation (without docker)
 
