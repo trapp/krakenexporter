@@ -1,13 +1,13 @@
 {
-  "name": "krakennotifier",
+  "name": "krakenexporter",
   "version": "1.0.0",
   "authors": [
     "Timon Rapp <timon@zaeda.net>"
   ],
-  "description": "Kraken Notifier - Watch your kraken balance",
+  "description": "Kraken Exporter - Export your Kraken history as CSV.",
   "main": "app.js",
   "license": "MIT",
-  "homepage": "https://github.com/trapp/krakennotifier",
+  "homepage": "https://github.com/trapp/krakenexporter",
   "private": true,
   "ignore": [
     "**/.*",
